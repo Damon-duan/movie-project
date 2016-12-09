@@ -1,0 +1,20 @@
+#!/usr/bin/env node
+/*这一句是写给类unix系统看的
+ *如果用户没有将nodejs装在默认的/usr/bin路径里
+ *当系统看到这一行的时候，首先会到env设置里查找nodejs的安装路径
+ *再调用对应路径下的解释器程序完成操作
+ */
+var app = require('../app');
+//引入app主应用
+
+var PORT;
+
+app.set('port', PORT || 3000);
+//设置端口为环境变量.env文件里的PORT，如果.env里没有，就默认3000
+
+var server = app.listen(app.get('port'), function() {
+    console.log('Express server listening on port ', app.get('port'), " with pid ", process.pid);
+});
+/*app.listen(path,[callback])的写法是启动一个socket连接，然后在给定的端口上监听连接
+ *app.get(name)的写法是获取app设置，设置的时候通过app.set('port', 'my port');来设置。
+ */
